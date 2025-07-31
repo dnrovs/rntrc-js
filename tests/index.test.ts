@@ -37,6 +37,31 @@ describe('Rntrc', () => {
         })
     })
 
+    describe('age', () => {
+        const mockNow = new Date('2025-07-31T00:00:00.000Z')
+
+        beforeAll(() => {
+            jest.useFakeTimers().setSystemTime(mockNow)
+        })
+
+        afterAll(() => {
+            jest.useRealTimers()
+        })
+
+        it('should return the correct age based on the RNTRC', () => {
+            const rntrcInstance = Rntrc.generate({
+                day: 24,
+                month: 8,
+                year: 1991
+            })
+            expect(rntrcInstance.age()).toStrictEqual({
+                years: 33,
+                months: 11,
+                days: 7
+            })
+        })
+    })
+
     describe('gender', () => {
         it("should return 'male' for male RNTRC", () => {
             const rntrcInstance = Rntrc.generate({ gender: 'male' })

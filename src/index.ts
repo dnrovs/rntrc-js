@@ -4,6 +4,18 @@
 export type Gender = 'male' | 'female'
 
 /**
+ * The type for age values in RNTRC.
+ * */
+export type Age = {
+    /** Years that have passed since a person's birth */
+    years: number
+    /** Months that have passed since a person's birth */
+    months: number
+    /** Days that have passed since a person's birth */
+    days: number
+}
+
+/**
  * Parameters for generating a RNTRC number.
  */
 export interface GenerateParams {
@@ -90,6 +102,28 @@ export default class Rntrc {
     public birthdate(): Date {
         const days = parseInt(this.value.slice(0, 5), 10)
         return new Date(Rntrc.BASE_DATE_MS + days * Rntrc.MILLIS_PER_DAY)
+    }
+
+    public age(): Age {
+        const birthdate = this.birthdate()
+        const now = new Date()
+
+        let years = now.getFullYear() - birthdate.getFullYear()
+        let months = now.getMonth() - birthdate.getMonth()
+        let days = now.getDate() - birthdate.getDate()
+
+        if (days < 0) {
+            months -= 1
+            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0)
+            days += prevMonth.getDate()
+        }
+
+        if (months < 0) {
+            years -= 1
+            months += 12
+        }
+
+        return { years, months, days }
     }
 
     /**
