@@ -1,12 +1,12 @@
 /**
  * The type for gender values in RNTRC.
  */
-type Gender = 'male' | 'female'
+export type Gender = 'male' | 'female'
 
 /**
  * Parameters for generating a RNTRC number.
  */
-interface GenerateParams {
+export interface GenerateParams {
     /** @param {string | number} [day] - Day of birth */
     day?: string | number
     /** @param {string | number} [month] - Month of birth */
