@@ -104,6 +104,11 @@ export default class Rntrc {
         return new Date(Rntrc.BASE_DATE_MS + days * Rntrc.MILLIS_PER_DAY)
     }
 
+    /**
+     * Calculates RNTRC holder's age
+     *
+     * @returns {Age} Object with age values
+     * */
     public age(): Age {
         const birthdate = this.birthdate()
         const now = new Date()
